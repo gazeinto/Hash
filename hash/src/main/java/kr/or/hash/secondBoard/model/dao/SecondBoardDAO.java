@@ -1,4 +1,4 @@
-package kr.or.hash.secondBoard.dao;
+package kr.or.hash.secondBoard.model.dao;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
