@@ -13,10 +13,12 @@ public class FirstBoardController {
 	@Autowired
 	private FirstBoardService fbService;
 	
+	//게시판페이지로의 접근
 	@RequestMapping(value="/firstBoard/firstBoardPage.do", method = RequestMethod.GET )
 	public String firstBoardPage() {
 		return "firstBoard/board";
 	}
+	
 	
 	
 }

@@ -2,4 +2,13 @@
 <!DOCTYPE configuration PUBLIC "//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd" >
 <configuration>
 
+	<typeAliases>
+	
+		<typeAlias type="kr.or.hash.firstBoard.model.vo.FirstBoard" alias="firstBoard"/>
+		<typeAlias type="kr.or.hash.firstBoard.model.vo.FirstBoardPhoto" alias="firstBoardPhoto"/>
+		<typeAlias type="kr.or.hash.secondBoard.model.vo.SecondBoard" alias="secondBoard"/>
+		<typeAlias type="kr.or.hash.secondBoard.model.vo.SecondBoardPhoto" alias="secondBoardPhoto"/>
+	
+	</typeAliases>
+
 </configuration>
