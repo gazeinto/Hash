@@ -1,9 +1,9 @@
-package kr.or.hash.secondBoard.service;
+package kr.or.hash.secondBoard.model.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import kr.or.hash.secondBoard.dao.SecondBoardDAO;
+import kr.or.hash.secondBoard.model.dao.SecondBoardDAO;
 
 @Service
 public class SecondBoardServiceImpl implements SecondBoardService{

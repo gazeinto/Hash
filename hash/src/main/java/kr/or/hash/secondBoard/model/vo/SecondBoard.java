@@ -1,4 +1,4 @@
-package kr.or.hash.secondBoard.vo;
+package kr.or.hash.secondBoard.model.vo;
 
 import java.sql.Date;
 

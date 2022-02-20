@@ -5,7 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import kr.or.hash.secondBoard.service.SecondBoardService;
+import kr.or.hash.secondBoard.model.service.SecondBoardService;
 
 @Controller
 public class SecondBoardController {

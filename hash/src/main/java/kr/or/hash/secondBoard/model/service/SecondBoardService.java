@@ -1,4 +1,4 @@
-package kr.or.hash.secondBoard.service;
+package kr.or.hash.secondBoard.model.service;
 
 public interface SecondBoardService {
 
