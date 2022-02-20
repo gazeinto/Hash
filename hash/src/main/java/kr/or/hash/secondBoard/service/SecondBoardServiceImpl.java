@@ -10,4 +10,11 @@ public class SecondBoardServiceImpl implements SecondBoardService{
 
 	@Autowired
 	private SecondBoardDAO sbDAO;
+
+	@Override
+	public void selectBoard() {
+		
+		sbDAO.selectBoard();
+		
+	}
 }

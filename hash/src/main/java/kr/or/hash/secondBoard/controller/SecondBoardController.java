@@ -13,9 +13,15 @@ public class SecondBoardController {
 	@Autowired
 	private SecondBoardService sbService;
 	
+	//게시판 페이지 연결
 	@RequestMapping(value="/secondBoard/SecondBoardPage.do",method = RequestMethod.GET)
 	public String SecondBoardPage(){
 		
-		return "secondBoard/secondBoardPage";
+		sbService.selectBoard();
+		
+		return "secondBoard/secondBoard";
 	}
+	
+	//
+	
 }

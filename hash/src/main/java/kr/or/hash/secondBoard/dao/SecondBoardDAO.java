@@ -9,5 +9,10 @@ public class SecondBoardDAO {
 
 	@Autowired
 	private SqlSessionTemplate sql;
+
+	public void selectBoard() {
+
+		sql.selectList("secondBoard.selectBoard");
+	}
 	
 }
