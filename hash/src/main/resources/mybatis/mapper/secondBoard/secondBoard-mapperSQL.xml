@@ -2,5 +2,63 @@
 <!DOCTYPE mapper PUBLIC "//mybatis.org/DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="secondBoard">
  
+ <select id="selectBoard" parameterType="hashmap" resultType="secondBoard">
+  select 
+  		BOARD_NO as boardNo,
+		BOARD_TITLE as boardTitle,
+		BOARD_CONTENT as boardContent,
+		BOARD_REGDATE as regDate,
+		BOARD_COUNT as boardCount,
+		BOARD_ENDYN as boardEndYN,
+		BOARDPHOTO_NO as boardPhotoNo 
+  from 
+  (select row_number() over (order by board_no desc) as num , board.* from board
+  where board_endYN='N' 
+  <choose>
+  	<when test="type!=null and type.equals('title')">
+  		and board_title like '%'||#{keyword}||'%'	
+  	</when>
+  	<when test="type!=null and type.equals('content')">
+  		and board_content like '%'||#{keyword}||'%'	
+  	</when>
+  	<when test="type!=null and type.equals('all')">
+  		and board_title like '%'||#{keyword}||'%' and board_content like '%'||#{keyword}||'%'	
+  	</when>
+  	
+  	<otherwise></otherwise>
+  </choose>
+  
+  )
+  where num between #{start} and #{end}
+ </select>	
  
+ <select id="totalCount" parameterType="hashmap" resultType="integer">
+ 	select count(*) from board where 
+ 	<choose>
+ 	 <when test="type!=null and type.equals('title')">
+  		board_title like '%'||#{keyword}||'%'	
+  	</when>
+  	<when test="type!=null and type.equals('content')">
+  		board_content like '%'||#{keyword}||'%'	
+  	</when>
+  	<when test="type!=null and type.equals('all')">
+  		board_title like '%'||#{keyword}||'%' and board_content like '%'||#{keyword}||'%'	
+  	</when>
+  	<otherwise>
+  		board_endYN='N' 
+  	</otherwise>
+ 	</choose>
+ </select>
+ 
+ <select id="secondBoardSelect" parameterType="int" resultType="secondBoard">
+ 	select 
+  		BOARD_NO as boardNo,
+		BOARD_TITLE as boardTitle,
+		BOARD_CONTENT as boardContent,
+		BOARD_REGDATE as regDate,
+		BOARD_COUNT as boardCount,
+		BOARD_ENDYN as boardEndYN,
+		BOARDPHOTO_NO as boardPhotoNo 
+   from board where board_no=#{_parameter}
+ </select>
 </mapper>
