@@ -49,5 +49,30 @@
 		</choose>	
 	
 	</select>
+	
+	<select id="firstBoardView" parameterType="int" resultType="firstBoard">
+		
+		SELECT
+			BOARD_NO as boardNo,
+			BOARD_TITLE as boardTitle,
+			BOARD_CONTENT as boardContent,
+			BOARD_REGDATE as boardRegdate,
+			BOARD_COUNT as boardCount,
+			BOARD_ENDYN as boardEndYN,
+			BOARDPHOTO_NO as boardPhotoNo
+		FROM
+			BOARD
+		WHERE
+			BOARD_NO = #{_parameter}
+		
+	</select>
+	
+	<update id="firstBoardUpdate" parameterType="firstBoard">
+		
+		UPDATE BOARD
+		SET BOARD_TITLE=#{boardTitle}, BOARD_CONTENT=#{boardContent}
+		WHERE BOARD_NO=#{boardNo}
+		
+	</update>
 
 </mapper>

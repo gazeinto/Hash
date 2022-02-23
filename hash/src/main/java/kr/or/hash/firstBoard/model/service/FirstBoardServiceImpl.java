@@ -30,5 +30,20 @@ public class FirstBoardServiceImpl implements FirstBoardService {
 		
 		return returnMap;
 	}
+
+	@Override
+	public FirstBoard firstBoardView(int boardNo) {
+		return fbDAO.firstBoardView(boardNo);
+	}
+
+	@Override
+	public FirstBoard firstBoardUpdatePage(int boardNo) {
+		return fbDAO.firstBoardUpdatePage(boardNo);
+	}
+
+	@Override
+	public int firstBoardUpdateWrite(FirstBoard fristBoard) {
+		return fbDAO.firstBoardUpdateWrite(fristBoard);
+	}
 	
 }

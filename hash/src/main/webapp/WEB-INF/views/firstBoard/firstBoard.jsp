@@ -37,12 +37,15 @@
 		   </tr>
 		 </thead>
 		
-		<c:forEach items="${map.list}" var="board">
-			<tr class="view" onclick="location.href='/'">
-				<th>${board.boardNo}</th>
-				<td>${board.boardTitle}</td>
-				<td>${board.boardRegDate}</td>
-				<td>${board.boardCount}</td>
+		
+		<c:forEach items="${map.list}" var="firstBoard">
+			<tr>
+				<th>${firstBoard.boardNo}</th>
+				<td>
+					<a href="/firstBoard/firstBoardView.do?boardNo=${firstBoard.boardNo }&currentPage=${currentPage }&type=${map.type }&keyword=${keyword }">${firstBoard.boardTitle}</a>
+				</td>
+				<td>${firstBoard.boardRegDate}</td>
+				<td>${firstBoard.boardCount}</td>
 			</tr>
 		</c:forEach>
 	</table>

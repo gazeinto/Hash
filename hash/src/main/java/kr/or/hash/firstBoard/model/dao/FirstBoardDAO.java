@@ -65,5 +65,20 @@ public class FirstBoardDAO {
 	private int firstBoardTotalCount(HashMap<String, Object> map) {
 		return sql.selectOne("firstBoard.selectFirstBoardListTotalCount",map);
 	}
+
+
+	public FirstBoard firstBoardView(int boardNo) {
+		return sql.selectOne("firstBoard.firstBoardView", boardNo);
+	}
+
+
+	public FirstBoard firstBoardUpdatePage(int boardNo) {
+		return sql.selectOne("firstBoard.firstBoardView", boardNo);
+	}
+
+
+	public int firstBoardUpdateWrite(FirstBoard fristBoard) {
+		return sql.update("firstBoard.firstBoardUpdate", fristBoard);
+	}
 	
 }
