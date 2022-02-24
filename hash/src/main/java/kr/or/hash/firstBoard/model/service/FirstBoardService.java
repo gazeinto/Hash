@@ -8,10 +8,12 @@ public interface FirstBoardService {
 
 	HashMap<String, Object> selectFirstBoardList(HashMap<String, Object> map);
 
-	FirstBoard firstBoardView(int boardNo);
+	HashMap<String, Object> firstBoardView(int boardNo);
 
 	FirstBoard firstBoardUpdatePage(int boardNo);
 
 	int firstBoardUpdateWrite(FirstBoard fristBoard);
+
+	int firstBoardDelete(int boardNo);
 
 }

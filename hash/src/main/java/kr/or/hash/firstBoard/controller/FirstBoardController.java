@@ -51,12 +51,12 @@ public class FirstBoardController {
 			@RequestParam(required = false, defaultValue= "default") String type,
 			ModelAndView mav) {
 
-		FirstBoard firstBoard = fbService.firstBoardView(boardNo);
+		HashMap<String, Object> map = fbService.firstBoardView(boardNo);
 		
 		mav.addObject("currentPage", currentPage);
 		mav.addObject("type", type);
 		mav.addObject("keyword", keyword);
-		mav.addObject("firstBoard", firstBoard);
+		mav.addObject("map", map);
 		mav.setViewName("firstBoard/firstBoardView");
 		
 		return mav;
@@ -94,5 +94,22 @@ public class FirstBoardController {
 	};
 	
 	//글 삭제
+	@RequestMapping(value = "/firstBoard/firstBoardDelete.do", method = RequestMethod.GET)
+	public ModelAndView questionFarmDelete(ModelAndView mav,
+			@RequestParam int boardNo) {
+		
+		int result = fbService.firstBoardDelete(boardNo);
+		
+		if(result > 0) {
+			mav.addObject("msg", "삭제완료" );
+			mav.addObject("location", "/firstBoard/firstBoardListPage.do");
+		}else {
+			mav.addObject("msg", "삭제실패" );
+			mav.addObject("location", "/firstBoard/firstBoardDelete.do?boardNo="+boardNo);
+		}
+		
+		mav.setViewName("commons/msg");
+		return mav;
+	}
 	
 }

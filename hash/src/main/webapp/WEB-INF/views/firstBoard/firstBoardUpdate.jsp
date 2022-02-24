@@ -16,7 +16,7 @@
 		
 		<input type="hidden" value="${firstBoard.boardNo }" name="boardNo">
 		
-		<input type="submit" value="수정하기">
+		<input type="submit" value="수정완료">
 		<input type="button" value="이전으로" onclick="history.back(-1);">
 		
 	</form>

@@ -32,7 +32,7 @@ public class FirstBoardServiceImpl implements FirstBoardService {
 	}
 
 	@Override
-	public FirstBoard firstBoardView(int boardNo) {
+	public HashMap<String, Object> firstBoardView(int boardNo) {
 		return fbDAO.firstBoardView(boardNo);
 	}
 
@@ -44,6 +44,11 @@ public class FirstBoardServiceImpl implements FirstBoardService {
 	@Override
 	public int firstBoardUpdateWrite(FirstBoard fristBoard) {
 		return fbDAO.firstBoardUpdateWrite(fristBoard);
+	}
+
+	@Override
+	public int firstBoardDelete(int boardNo) {
+		return fbDAO.firstBoardDelete(boardNo);
 	}
 	
 }

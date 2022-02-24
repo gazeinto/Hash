@@ -67,8 +67,13 @@ public class FirstBoardDAO {
 	}
 
 
-	public FirstBoard firstBoardView(int boardNo) {
-		return sql.selectOne("firstBoard.firstBoardView", boardNo);
+	public HashMap<String, Object> firstBoardView(int boardNo) {
+		
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("firstBoardCount", sql.update("firstBoard.firstBoardCountUpdate", boardNo));
+		map.put("firstBoard", sql.selectOne("firstBoard.firstBoardView", boardNo));
+		
+		return map;
 	}
 
 
@@ -79,6 +84,11 @@ public class FirstBoardDAO {
 
 	public int firstBoardUpdateWrite(FirstBoard fristBoard) {
 		return sql.update("firstBoard.firstBoardUpdate", fristBoard);
+	}
+
+
+	public int firstBoardDelete(int boardNo) {
+		return sql.update("firstBoard.firstBoardDelete", boardNo);
 	}
 	
 }

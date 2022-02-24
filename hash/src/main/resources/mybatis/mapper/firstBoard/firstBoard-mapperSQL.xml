@@ -74,5 +74,21 @@
 		WHERE BOARD_NO=#{boardNo}
 		
 	</update>
+	
+	<update id="firstBoardDelete" parameterType="firstBoard">
+		
+		UPDATE BOARD
+		SET BOARD_ENDYN='Y'
+		WHERE BOARD_NO=#{boardNo}
+		
+	</update>
+	
+	<update id="firstBoardCountUpdate" parameterType="firstBoard">
+		
+		UPDATE BOARD
+		SET BOARD_COUNT = BOARD_COUNT + 1
+		WHERE BOARD_NO=#{boardNo}
+		
+	</update>
 
 </mapper>
