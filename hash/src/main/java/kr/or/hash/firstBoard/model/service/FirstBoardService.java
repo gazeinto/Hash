@@ -16,4 +16,6 @@ public interface FirstBoardService {
 
 	int firstBoardDelete(int boardNo);
 
+	int firstBoardWrite(FirstBoard fristBoard);
+
 }

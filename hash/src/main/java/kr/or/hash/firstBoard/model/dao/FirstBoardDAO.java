@@ -90,5 +90,10 @@ public class FirstBoardDAO {
 	public int firstBoardDelete(int boardNo) {
 		return sql.update("firstBoard.firstBoardDelete", boardNo);
 	}
+
+
+	public int firstBoardWrite(FirstBoard fristBoard) {
+		return sql.insert("firstBoard.firstBoardWrite", fristBoard);
+	}
 	
 }

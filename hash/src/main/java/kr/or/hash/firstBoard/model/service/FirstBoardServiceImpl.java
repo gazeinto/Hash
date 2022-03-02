@@ -50,5 +50,10 @@ public class FirstBoardServiceImpl implements FirstBoardService {
 	public int firstBoardDelete(int boardNo) {
 		return fbDAO.firstBoardDelete(boardNo);
 	}
+
+	@Override
+	public int firstBoardWrite(FirstBoard fristBoard) {
+		return fbDAO.firstBoardWrite(fristBoard);
+	}
 	
 }

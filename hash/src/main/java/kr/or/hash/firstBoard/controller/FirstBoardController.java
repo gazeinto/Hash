@@ -95,7 +95,7 @@ public class FirstBoardController {
 	
 	//글 삭제
 	@RequestMapping(value = "/firstBoard/firstBoardDelete.do", method = RequestMethod.GET)
-	public ModelAndView questionFarmDelete(ModelAndView mav,
+	public ModelAndView firstBoardDelete(ModelAndView mav,
 			@RequestParam int boardNo) {
 		
 		int result = fbService.firstBoardDelete(boardNo);
@@ -106,6 +106,31 @@ public class FirstBoardController {
 		}else {
 			mav.addObject("msg", "삭제실패" );
 			mav.addObject("location", "/firstBoard/firstBoardDelete.do?boardNo="+boardNo);
+		}
+		
+		mav.setViewName("commons/msg");
+		return mav;
+	}
+	
+	//글 작성 페이지로 이동
+	@RequestMapping(value = "/firstBoard/firstBoardWritePage.do", method = RequestMethod.GET)
+	public String firstBoardWritePage() {
+		return "firstBoard/firstBoardWrite";
+	}
+	
+	//글 작성
+	@RequestMapping(value = "/firstBoard/firstBoardWrite.do", method = RequestMethod.POST)
+	public ModelAndView firstBoardWrite(FirstBoard fristBoard,
+			ModelAndView mav) {
+		
+		int result = fbService.firstBoardWrite(fristBoard);
+		
+		if(result > 0) {
+			mav.addObject("msg", "작성완료" );
+			mav.addObject("location", "/firstBoard/firstBoardListPage.do");
+		}else {
+			mav.addObject("msg", "작성실패" );
+			mav.addObject("location", "/firstBoard/firstBoardListPage.do");
 		}
 		
 		mav.setViewName("commons/msg");

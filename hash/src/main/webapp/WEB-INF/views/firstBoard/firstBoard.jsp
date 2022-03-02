@@ -55,7 +55,7 @@
 	</div>
 	
 	<div class="buttonform">
-		<input type="submit" value="글쓰기" onclick="location.href='/'">
+		<input type="submit" value="글쓰기" onclick="location.href='/firstBoard/firstBoardWritePage.do'">
 		<input type="button" value="홈으로" onclick="location.href='/'">
 	</div>
 	

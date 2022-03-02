@@ -90,5 +90,18 @@
 		WHERE BOARD_NO=#{boardNo}
 		
 	</update>
+	
+	<insert id="firstBoardWrite" parameterType="firstBoard">
+	
+		INSERT INTO BOARD
+		VALUES  (boardNo_Seq.NEXTVAL,
+				#{boardTitle},
+				#{boardContent},
+				SYSDATE,
+				0,
+				'N',
+				'')
+	
+	</insert>
 
 </mapper>
