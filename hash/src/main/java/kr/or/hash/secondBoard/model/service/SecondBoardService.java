@@ -9,6 +9,6 @@ public interface SecondBoardService {
 
 	HashMap<String, Object> selectBoard(int currentPage, HashMap<String, Object> map);
 
-	SecondBoard secondBoardSelect(int boardNo);
+	HashMap<String, Object> secondBoardSelect(int boardNo);
 
 }

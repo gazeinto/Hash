@@ -35,7 +35,7 @@ public class SecondBoardServiceImpl implements SecondBoardService{
 	}
 
 	@Override
-	public SecondBoard secondBoardSelect(int boardNo) {
+	public HashMap<String, Object> secondBoardSelect(int boardNo) {
 
 		return sbDAO.secondBoardSelect(boardNo);
 		

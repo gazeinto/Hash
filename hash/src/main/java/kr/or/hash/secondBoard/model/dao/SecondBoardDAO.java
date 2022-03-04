@@ -40,6 +40,7 @@ public class SecondBoardDAO {
 		}
 		
 		StringBuilder sb = new StringBuilder();
+		
 		sb.append("<a href='/secondBoard/secondBoardPage.do?currentPage=1&type="+map.get("type")+"&keyword="+map.get("keyword")+"' >&lt;&lt;</a>");
 		sb.append("<a href='/secondBoard/secondBoardPage.do?currentPage="+(currentPage-10)+"' id='prev' >&lt;</a>");
 		
@@ -57,7 +58,7 @@ public class SecondBoardDAO {
 			sb.append("<a href='/secondBoard/secondBoardPage.do?currentPage="+(currentPage+10)+"&type="+map.get("type")+"&keyword="+map.get("keyword")+"' id='next' >&gt;</a>");
 		}
 		sb.append("<a href='/secondBoard/secondBoardPage.do?currentPage="+pageTotalCount+"&type="+map.get("type")+"&keyword="+map.get("keyword")+"' >&gt;&gt;</a>");
-
+		
 		return sb.toString();
 		
 	}
@@ -67,8 +68,16 @@ public class SecondBoardDAO {
 		return sql.selectOne("secondBoard.totalCount",map);
 	}
 
-	public SecondBoard secondBoardSelect(int boardNo) {
+	public HashMap<String, Object> secondBoardSelect(int boardNo) {
 
-		return sql.selectOne("secondBoard.secondBoardSelect",boardNo);
+		int result = sql.update("secondBoard.updateBoardCount",boardNo);
+		SecondBoard sb =  sql.selectOne("secondBoard.secondBoardSelect",boardNo);
+		
+		HashMap<String,Object> map = new HashMap<String, Object>();
+		
+		map.put("result", result);
+		map.put("sb", sb);
+		
+		return map;
 	}
 }
