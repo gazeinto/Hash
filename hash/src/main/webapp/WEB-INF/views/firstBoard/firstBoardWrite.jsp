@@ -22,8 +22,9 @@
 	</form>
 	
 	<script>
-		CKEDITOR.replace( 'ckeditor',
-			{ filebrowserImageUploadUrl: '/file/uploadEditor'
+		CKEDITOR.replace( 'ckeditor', {
+			filebrowserImageUploadUrl: '/imgUpload.do',
+			uploadUrl:'/imgUpload.do'
 		});
 	</script>
 	

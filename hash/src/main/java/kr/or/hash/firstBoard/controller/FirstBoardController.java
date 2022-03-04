@@ -1,13 +1,31 @@
 package kr.or.hash.firstBoard.controller;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.OutputStream;
+import java.io.PrintWriter;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
+
+import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
+
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
+import com.oreilly.servlet.MultipartRequest;
+import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
 import kr.or.hash.firstBoard.model.service.FirstBoardService;
 import kr.or.hash.firstBoard.model.vo.FirstBoard;
@@ -136,5 +154,70 @@ public class FirstBoardController {
 		mav.setViewName("commons/msg");
 		return mav;
 	}
+
 	
+	@Autowired
+	private ServletContext context;
+	
+	
+	@RequestMapping(value = "/imgUpload.do", method = RequestMethod.POST)
+	public void communityFile(HttpServletRequest request, HttpServletResponse response) throws Exception {
+	  
+		String uploadPath = "/resources/upload/firstBoard";
+		String uploadFilePath = context.getRealPath(uploadPath); System.out.println("파일 경로 : " +uploadFilePath);
+		  
+		// 파일 사이즈 설정(50MB)
+		int uploadFileSizeLimit = 50 * 1024 * 1024;
+		  
+		// 파일 이름 인코딩 설정
+		String encType = "UTF-8";
+		  
+		// MultipartRequest 객체 생성
+		MultipartRequest multi = new MultipartRequest(request, uploadFilePath + "/temp", uploadFileSizeLimit, encType, new DefaultFileRenamePolicy());
+		  
+		// 파일 이름
+		String originalFileName = multi.getFilesystemName("upload");
+		  
+		// 시간값
+		long currentTime = Calendar.getInstance().getTimeInMillis();
+		  
+		// 폴더에 저장될 파일 이름 지정
+		File file = new File(uploadFilePath + "\\temp\\" + originalFileName);
+		  
+		String ext = originalFileName.substring(originalFileName.lastIndexOf('.') + 1);
+		// 파일 확장
+		File file2 = new File(uploadFilePath + "\\" + currentTime + "." + ext);
+		file.renameTo(file2);
+		  
+		JsonObject json = new JsonObject();
+		json.addProperty("url", "/resources/upload/firstBoard/" + file2.getName());
+		json.addProperty("uploaded", 1);
+		json.addProperty("fileName", originalFileName);
+		new Gson().toJson(json, response.getWriter());
+	  
+	}
+	 
+	/*
+	@RequestMapping("/imgUpload.do")
+	@ResponseBody
+	public void imageUpload(HttpServletRequest request, HttpServletResponse response, @RequestParam MultipartFile upload) throws Exception { 
+	response.setCharacterEncoding("utf-8");
+	 response.setContentType("text/html;charset=utf-8"); 
+	String fileName=upload.getOriginalFilename(); 
+	Date date = new Date(); 
+	SimpleDateFormat imsi = new SimpleDateFormat("yyMMddHHmmssZ"); 
+	fileName = imsi.format(date)+"_"+fileName; 
+	byte[] bytes = upload.getBytes(); 
+	String uploadPath = request.getSession().getServletContext().getRealPath("/")+"/resources/ckeditor/images/"; 
+
+	OutputStream outStr = new FileOutputStream(new File(uploadPath + fileName)); 
+	outStr.write(bytes); 
+	//String callback=request.getParameter("CKEditorFuncNum"); 
+	PrintWriter out=response.getWriter(); 
+	String fileUrl=request.getContextPath()+"/resources/ckeditor/images/"+fileName;
+	//out.println("window.parent.CKEDITOR.tools.callFunction("+callback+",'"+fileUrl+"','이미지가 업로드되었습니다.')"+""); 
+	out.println("{\"filename\" : \""+fileName+"\", \"uploaded\" : 1, \"url\":\""+fileUrl+"\"}"); 
+	out.flush();
+	outStr.close(); 
+	}*/
 }
