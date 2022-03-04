@@ -80,4 +80,9 @@ public class SecondBoardDAO {
 		
 		return map;
 	}
+
+	public int writeContent(SecondBoard sb) {
+
+		return sql.insert("secondBoard.writeContent",sb);
+	}
 }

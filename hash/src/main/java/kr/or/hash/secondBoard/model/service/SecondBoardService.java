@@ -11,4 +11,6 @@ public interface SecondBoardService {
 
 	HashMap<String, Object> secondBoardSelect(int boardNo);
 
+	int writeContent(SecondBoard sb);
+
 }
