@@ -39,13 +39,14 @@ public class SecondBoardController {
 		return mav;
 	}
 	
+	//해당 게시글로 이동
 	@RequestMapping(value="/second/secondBoardSelect.do",method = RequestMethod.GET)
 	public ModelAndView secondBoardSelect(@RequestParam int boardNo,
 									ModelAndView mav) {
 		
-		SecondBoard sb = sbService.secondBoardSelect(boardNo);
+		HashMap<String, Object> map = sbService.secondBoardSelect(boardNo);
 		
-		mav.addObject("sb",sb);
+		mav.addObject("map",map);
 		mav.setViewName("secondBoard/selectBoard");
 		
 		return mav;
@@ -55,10 +56,13 @@ public class SecondBoardController {
 	@RequestMapping(value="/secondBoard/secondBoardWrite.do")
 	public String secondBoardWrite() {
 	
-		
 		return "secondBoard/boardWrite";
 	}
 	
 	
-	
+	@RequestMapping(value="/secondBoard/writeBoard.do", method = RequestMethod.POST)
+	public void writeBoard(@RequestParam String boardContent) {
+		
+		System.out.println(boardContent);
+	}
 }
