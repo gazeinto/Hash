@@ -44,7 +44,7 @@
 		제목 : <input type="text" id="title-input" name="boardTitle" >
 	</div>
    	<div id="classic">
-        <textarea rows="5" cols="10" name="boardContent"></textarea>
+   		
 	</div>
 	<input type="button" value="목록" onclick="location.href='/secondBoard/secondBoardPage.do'">
 	<input type="reset" value="초기화"/>	
