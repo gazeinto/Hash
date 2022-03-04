@@ -40,4 +40,11 @@ public class SecondBoardServiceImpl implements SecondBoardService{
 		return sbDAO.secondBoardSelect(boardNo);
 		
 	}
+
+	@Override
+	public int writeContent(SecondBoard sb) {
+
+		return sbDAO.writeContent(sb);
+		
+	}
 }

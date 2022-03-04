@@ -66,4 +66,10 @@
 		BOARDPHOTO_NO as boardPhotoNo 
    from board where board_no=#{_parameter}
  </select>
+ 
+ <insert id="writeContent" parameterType="secondBoard">
+ 	insert into board values(boardno_SEQ.nextval,#{boardTitle},#{boardContent},sysdate,0,'N','')
+ </insert>
+ 
+ 
 </mapper>
