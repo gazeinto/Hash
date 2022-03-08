@@ -17,7 +17,16 @@
 		<filter-name>characterEncoding</filter-name>
 		<url-pattern>*.do</url-pattern>
 	</filter-mapping>
-
+	
+	<filter>
+		<filter-name>multipart</filter-name>
+		<filter-class>org.springframework.web.multipart.support.MultipartFilter</filter-class>
+	</filter>
+	
+	<filter-mapping>
+		<filter-name>multipart</filter-name>
+		<url-pattern>*.do</url-pattern>
+	</filter-mapping>
 
 	<!-- The definition of the Root Spring Container shared by all Servlets and Filters -->
 	<context-param>
@@ -44,7 +53,7 @@
 		<load-on-startup>1</load-on-startup>
 		
 		<multipart-config>
-			<location>C:\ProjectHash\projectHash\hash\src\main\webapp\resources\upload\firstBoard</location>
+			<location>C:\ProjectHash\projectHash\hash\src\main\webapp\resources\ckUpload</location>
 			<max-file-size>20971520</max-file-size> <!-- 최대크기 20M -->
 			<max-request-size>41943040</max-request-size> <!-- 한번에 올릴 최대 크기 40M -->
 			<file-size-threshold>20971520</file-size-threshold> <!-- 메모리 -->

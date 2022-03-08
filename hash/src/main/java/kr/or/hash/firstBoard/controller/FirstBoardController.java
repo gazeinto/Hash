@@ -8,7 +8,10 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
+import java.io.IOException;
+import java.util.UUID;
 
+import javax.annotation.Resource;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -20,6 +23,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.google.gson.Gson;
@@ -29,6 +33,12 @@ import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
 import kr.or.hash.firstBoard.model.service.FirstBoardService;
 import kr.or.hash.firstBoard.model.vo.FirstBoard;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+
+
 
 @Controller
 public class FirstBoardController {
@@ -155,10 +165,9 @@ public class FirstBoardController {
 		return mav;
 	}
 
-	
+	/*
 	@Autowired
 	private ServletContext context;
-	
 	
 	@RequestMapping(value = "/imgUpload.do", method = RequestMethod.POST)
 	public void communityFile(HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -196,8 +205,7 @@ public class FirstBoardController {
 		new Gson().toJson(json, response.getWriter());
 	  
 	}
-	 
-	/*
+	
 	@RequestMapping("/imgUpload.do")
 	@ResponseBody
 	public void imageUpload(HttpServletRequest request, HttpServletResponse response, @RequestParam MultipartFile upload) throws Exception { 
@@ -220,4 +228,114 @@ public class FirstBoardController {
 	out.flush();
 	outStr.close(); 
 	}*/
+	
+
+		private Logger logger = LoggerFactory.getLogger(this.getClass());
+		@Resource(name="uploadPath")
+		private String uploadPath;
+	
+		@RequestMapping(value="/ckUpload.do", method = RequestMethod.POST)
+		@ResponseBody public void ckUpload(HttpServletRequest req, HttpServletResponse res, @RequestParam MultipartFile upload) throws Exception{
+			logger.info("ckUpload 진입 =========================================1");
+	
+			// 랜덤 문자 생성
+			UUID uid = UUID.randomUUID();
+	
+			OutputStream out = null;
+			PrintWriter printWriter = null;
+			// 인코딩
+			res.setCharacterEncoding("utf-8");
+			res.setContentType("text/html;charset=utf-8");
+	
+			try {
+				String fileName = upload.getOriginalFilename(); // 파일 이름 가져오기
+				byte[] bytes = upload.getBytes();
+	
+				// 업로드 경로
+				String ckUploadPath = uploadPath + File.separator + "ckUpload" + File.separator + uid + "_" + fileName;
+				out = new FileOutputStream(new File(ckUploadPath));
+				out.write(bytes);
+				out.flush(); // out에 저장된 데이터를 전송하고 초기화
+				String callback = req.getParameter("CKEditorFuncNum");
+				printWriter = res.getWriter();
+				String fileUrl = "/ckUpload/" + uid + "_" + fileName; // 작성화면
+				//String fileUrl = "/ckUpload/" + uid + "&fileName=" + fileName; // 작성화면
+	
+				JsonObject json = new JsonObject();
+				json.addProperty("uploaded", 1);
+				json.addProperty("fileName", fileName);
+				json.addProperty("callback", callback);
+				json.addProperty("url", fileUrl);
+				printWriter.println(json);
+	
+				printWriter.flush();
+				} catch (IOException e) { e.printStackTrace();
+				} finally {
+					try {
+					if(out != null) { out.close(); }
+					if(printWriter != null) { printWriter.close(); }
+				} catch(IOException e) { e.printStackTrace(); }
+				}
+				return;
+			}
+	
+	/*
+	@Controller
+	@RequestMapping("/adm")
+	public class CkeditorFileUploadController {
+
+		@RequestMapping(value="fileupload.do", method=RequestMethod.POST)
+		@ResponseBody
+		public String fileUpload(HttpServletRequest req, HttpServletResponse resp, 
+	                 MultipartHttpServletRequest multiFile) throws Exception {
+			JsonObject json = new JsonObject();
+			PrintWriter printWriter = null;
+			OutputStream out = null;
+			MultipartFile file = multiFile.getFile("upload");
+			if(file != null){
+				if(file.getSize() > 0 && StringUtils.isNotBlank(file.getName())){
+					if(file.getContentType().toLowerCase().startsWith("image/")){
+						try{
+							String fileName = file.getName();
+							byte[] bytes = file.getBytes();
+							String uploadPath = req.getServletContext().getRealPath("/img");
+							File uploadFile = new File(uploadPath);
+							if(!uploadFile.exists()){
+								uploadFile.mkdirs();
+							}
+							fileName = UUID.randomUUID().toString();
+							uploadPath = uploadPath + "/" + fileName;
+							out = new FileOutputStream(new File(uploadPath));
+	                        out.write(bytes);
+	                        
+	                        printWriter = resp.getWriter();
+	                        resp.setContentType("text/html");
+	                        String fileUrl = req.getContextPath() + "/img/" + fileName;
+	                        
+	                        // json 데이터로 등록
+	                        // {"uploaded" : 1, "fileName" : "test.jpg", "url" : "/img/test.jpg"}
+	                        // 이런 형태로 리턴이 나가야함.
+	                        json.addProperty("uploaded", 1);
+	                        json.addProperty("fileName", fileName);
+	                        json.addProperty("url", fileUrl);
+	                        
+	                        printWriter.println(json);
+	                    }catch(IOException e){
+	                        e.printStackTrace();
+	                    }finally{
+	                        if(out != null){
+	                            out.close();
+	                        }
+	                        if(printWriter != null){
+	                            printWriter.close();
+	                        }		
+						}
+					}
+				}
+			}
+			return null;
+		}	
+		
+	} */
+	
 }

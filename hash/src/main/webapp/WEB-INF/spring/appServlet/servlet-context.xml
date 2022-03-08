@@ -24,6 +24,10 @@
 	<!-- 파일업로드 설정 -->
 	<beans:bean id="multipartResolver" class="org.springframework.web.multipart.support.StandardServletMultipartResolver"> </beans:bean>
 	
+	<beans:bean id="uploadPath" class="java.lang.String">
+		<beans:constructor-arg value="C:\ProjectHash\projectHash\hash\src\main\webapp\resources" />
+	</beans:bean>
+	
 	<context:component-scan base-package="kr.or.hash" />
 	
 	

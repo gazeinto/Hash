@@ -10,7 +10,7 @@
 </head>
 <body>
 
- 	<form action="/firstBoard/firstBoardWrite.do" method="post">
+ 	<form action="/firstBoard/firstBoardWrite.do" method="post" enctype="multipart/form-data">
 	
 		제목 : <input type="text" name="boardTitle"/> <br><br>
 		
@@ -21,11 +21,17 @@
 		
 	</form>
 	
+	<script> 
+		var ckeditor_config = {
+			resize_enaleb : false,
+			enterMode : CKEDITOR.ENTER_BR,
+			shiftEnterMode : CKEDITOR.ENTER_P,
+			filebrowserUploadUrl : "/ckUpload.do"
+		};
+	</script>
+	
 	<script>
-		CKEDITOR.replace( 'ckeditor', {
-			filebrowserImageUploadUrl: '/imgUpload.do',
-			uploadUrl:'/imgUpload.do'
-		});
+		CKEDITOR.replace( 'ckeditor', ckeditor_config);
 	</script>
 	
 
